@@ -19,9 +19,7 @@ func Do(action string, args []string) {
 }
 
 func DoSearch(args []string) {
-    /*
-     * Get params
-     */
+    // Get params
     var flagSet = flag.NewFlagSet("search", flag.ExitOnError)
 
     var marketName string
@@ -34,17 +32,13 @@ func DoSearch(args []string) {
         market = DefaultMarkets[marketName]
     }
 
-    /*
-     * Make request
-     */
+    // Make request
     result := Request(&SearchUtility{market}).(SearchResult)
 
-    /*
-     * Show result
-     */
-    fmt.Println("")
-
+    // Handle result
     for _, item := range result.Items {
+        fmt.Println("")
+
         // Description
         fmt.Printf(
             gubase.Color("● %s » %s\n", gubase.ColorWhite),
@@ -64,19 +58,15 @@ func DoSearch(args []string) {
         // Dates
         fmt.Printf("        Apply before: %s\n", item.LastDay)
         fmt.Printf("           Free from: %s\n", item.FreeFrom)
-
-        fmt.Printf("\n")
     }
 
     fmt.Printf(
-        gubase.Color("%d results\n", gubase.ColorWhite),
+        gubase.Color("\n%d results\n", gubase.ColorWhite),
         result.TotalCount)
 }
 
 func DoAuth(args []string) {
-    /*
-     * Get params
-     */
+    // Get params
     var username, password string
 
     fmt.Printf("Username: ")
@@ -85,15 +75,20 @@ func DoAuth(args []string) {
     fmt.Printf("Password: ")
     raw, _ := terminal.ReadPassword(int(os.Stdin.Fd()))
     password = string(raw)
+    fmt.Println("")
 
-    /*
-     * Make request
-     */
+    // Make request
     result := Request(&AuthUtility{username, password}).(AuthResult)
 
-    /*
-     * Show result
-     */
-    fmt.Println("")
-    fmt.Println(result)
+    // Handle result
+    if result.Success {
+        fmt.Println("Successfully authenticated")
+
+        // Store token
+        gubase.ReadPrefs()
+        gubase.SetPref("sgs.token", result.Token)
+        gubase.WritePrefs()
+    } else {
+        fmt.Println("Authentication failure")
+    }
 }

@@ -283,9 +283,21 @@ func (utility *AuthUtility) GetResp(response io.Reader) interface{} {
 // AuthResult
 
 type AuthResult struct {
-    token string
+    Token string
+    Success bool
 }
 
 func AuthResultFromData(data map[string]interface{}) AuthResult {
-    return AuthResult{data["SecurityTokenId"].(string)}
+    result := AuthResult{}
+
+    token := data["SecurityTokenId"]
+    switch token.(type) {
+    case string:
+        result.Token = token.(string)
+        result.Success = true
+    case nil:
+        result.Success = false
+    }
+
+    return result
 }
