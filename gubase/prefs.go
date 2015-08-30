@@ -4,7 +4,6 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    "os/user"
 )
 
 const PrefsFileName = ".gucli.json"
@@ -12,13 +11,7 @@ const PrefsFileName = ".gucli.json"
 var prefs = make(map[string]interface{})
 
 func GetPrefsPath() string {
-    usr, err := user.Current()
-
-    if err != nil {
-        fmt.Fprintln(os.Stderr, err)
-        os.Exit(1)
-    }
-
+    usr := GetCurrentUser()
     return fmt.Sprintf("%s/%s", usr.HomeDir, PrefsFileName)
 }
 
@@ -31,7 +24,7 @@ func ReadPrefs() {
     fmt.Fprintf(os.Stderr, "Reading preferences from %s\n", prefsPath)
 
     if err != nil {
-        fmt.Fprintln(os.Stderr, err, "\n")
+        fmt.Fprintln(os.Stderr, err)
     } else {
         dec := json.NewDecoder(file)
         dec.Decode(&prefs)
@@ -47,7 +40,7 @@ func WritePrefs() {
     fmt.Fprintf(os.Stderr, "Writing preferences to %s\n", prefsPath)
 
     if err != nil {
-        fmt.Fprintln(os.Stderr, err, "\n")
+        fmt.Fprintln(os.Stderr, err)
     } else {
         enc := json.NewEncoder(file)
         enc.Encode(&prefs)

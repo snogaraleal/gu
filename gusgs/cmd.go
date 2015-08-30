@@ -35,10 +35,8 @@ func DoSearch(args []string) {
     // Make request
     result := Request(&SearchUtility{market}).(SearchResult)
 
-    // Handle result
+    // Show results
     for _, item := range result.Items {
-        fmt.Println("")
-
         // Description
         fmt.Printf(
             gubase.Color("● %s » %s\n", gubase.ColorWhite),
@@ -58,10 +56,12 @@ func DoSearch(args []string) {
         // Dates
         fmt.Printf("        Apply before: %s\n", item.LastDay)
         fmt.Printf("           Free from: %s\n", item.FreeFrom)
+
+        fmt.Println("")
     }
 
     fmt.Printf(
-        gubase.Color("\n%d results\n", gubase.ColorWhite),
+        gubase.Color("%d results\n", gubase.ColorWhite),
         result.TotalCount)
 }
 
@@ -82,14 +82,12 @@ func DoAuth(args []string) {
 
     // Handle result
     if result.Success {
-        fmt.Println(
-            gubase.Color("Successfully authenticated", gubase.ColorGreen))
+        fmt.Println(gubase.Color("● Auth succeeded", gubase.ColorGreen))
 
         // Store token
         gubase.SetPref("sgs.token", result.Token)
     } else {
-        fmt.Println(
-            gubase.Color("Authentication failure", gubase.ColorRed))
+        fmt.Println(gubase.Color("● Auth failed", gubase.ColorRed))
 
         // Clean token
         gubase.SetPref("sgs.token", nil)
