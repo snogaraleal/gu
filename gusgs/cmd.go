@@ -82,13 +82,16 @@ func DoAuth(args []string) {
 
     // Handle result
     if result.Success {
-        fmt.Println("Successfully authenticated")
+        fmt.Println(
+            gubase.Color("Successfully authenticated", gubase.ColorGreen))
 
         // Store token
-        gubase.ReadPrefs()
         gubase.SetPref("sgs.token", result.Token)
-        gubase.WritePrefs()
     } else {
-        fmt.Println("Authentication failure")
+        fmt.Println(
+            gubase.Color("Authentication failure", gubase.ColorRed))
+
+        // Clean token
+        gubase.SetPref("sgs.token", nil)
     }
 }

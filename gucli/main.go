@@ -18,6 +18,8 @@ var Registry = map[string]Command {
 }
 
 func main() {
+    gubase.ReadPrefs()
+
     notice()
 
     if len(os.Args) < 3 {
@@ -37,6 +39,8 @@ func main() {
             gubase.Color("Command not found", gubase.ColorRed))
         os.Exit(1)
     }
+
+    gubase.WritePrefs()
 }
 
 func usage() {
