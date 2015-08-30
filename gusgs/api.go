@@ -249,6 +249,8 @@ func SearchResultItemPropertyFromData(
  */
 
 type AuthUtility struct {
+    username string
+    password string
 }
 
 func (utility *AuthUtility) GetPath() (string, string) {
@@ -256,9 +258,34 @@ func (utility *AuthUtility) GetPath() (string, string) {
 }
 
 func (utility *AuthUtility) GetData() url.Values {
-    return url.Values{}
+    values := url.Values{}
+
+    values.Set("SyndicateNo", "1")
+    values.Set("SyndicateGroupNo", "1")
+    values.Set("Method", "APILoginSGS")
+
+    values.Set("username", utility.username)
+    values.Set("password", utility.password)
+
+    return values
 }
 
 func (utility *AuthUtility) GetResp(response io.Reader) interface{} {
-    return nil
+    var data map[string]interface{}
+
+    dec := json.NewDecoder(response)
+    dec.Decode(&data)
+
+    return AuthResultFromData(data)
+}
+
+
+// AuthResult
+
+type AuthResult struct {
+    token string
+}
+
+func AuthResultFromData(data map[string]interface{}) AuthResult {
+    return AuthResult{data["SecurityTokenId"].(string)}
 }

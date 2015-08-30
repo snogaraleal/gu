@@ -3,7 +3,9 @@ package gusgs
 import (
     "flag"
     "fmt"
+    "os"
 
+    "golang.org/x/crypto/ssh/terminal"
     "github.com/snogaraleal/gu/gubase"
 )
 
@@ -38,7 +40,7 @@ func DoSearch(args []string) {
     result := Request(&SearchUtility{market}).(SearchResult)
 
     /*
-     * Show results
+     * Show result
      */
     fmt.Println("")
 
@@ -73,6 +75,25 @@ func DoSearch(args []string) {
 
 func DoAuth(args []string) {
     /*
-     * Ask credentials
+     * Get params
      */
+    var username, password string
+
+    fmt.Printf("Username: ")
+    fmt.Scanf("%s", &username)
+
+    fmt.Printf("Password: ")
+    raw, _ := terminal.ReadPassword(int(os.Stdin.Fd()))
+    password = string(raw)
+
+    /*
+     * Make request
+     */
+    result := Request(&AuthUtility{username, password}).(AuthResult)
+
+    /*
+     * Show result
+     */
+    fmt.Println("")
+    fmt.Println(result)
 }
