@@ -15,8 +15,6 @@ with the University of Gothenburg.
 
 Student housing service.
 
-![Screen](screen.png)
-
 - [x] `gucli sgs search [-m <market>]` Search vacant objects
 - [x] `gucli sgs auth` Exchange user and password for token
 - [ ] `gucli sgs info` Show current user information
@@ -28,7 +26,7 @@ Student housing service.
 
 Authentication system for external services.
 
-- [ ] `gucli sp auth` Authenticate via student portal
+- [x] `gucli sp auth` Authenticate via student portal
 
 
 ### Ladok
