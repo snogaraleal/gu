@@ -1,7 +1,7 @@
 # GU-CLI
 
-GU-CLI is a collection of utilities mostly of which are HTTP APIs that may
-come in handy when studying at the University of Gothenburg.
+Collection of command line utilities that may come in handy when studying
+at the University of Gothenburg.
 
 This software has **no official status** and **no affiliation** or whatsoever
 with the University of Gothenburg.
@@ -34,7 +34,7 @@ Authentication system for external services.
 
 - [x] `gucli sp auth` Authenticate via student portal
 - [ ] `gucli sp password` Change password
-- [ ] `gucli sp syllabus -q <query>`
+- [ ] `gucli sp syllabus -q <query>` Search for syllabuses
 
 
 ### Ladok
@@ -56,3 +56,8 @@ Platform providing course descriptions, syllabuses and schedules.
 ### Library
 
 University library.
+
+
+## License
+
+This project is under the terms of the MIT license. See `LICENSE.txt`.
