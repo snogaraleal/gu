@@ -24,6 +24,7 @@ Student housing service.
 ##### Example
 
 Poll SGS for last minute vacants with an interval of 4 seconds
+
 `watch -n 4 gucli sgs search -m sistam`
 
 
@@ -39,6 +40,12 @@ Authentication system for external services.
 ### Ladok
 
 Course registration.
+
+- [ ] `gucli ladok auth` Start session with existing student portal account
+- [ ] `gucli ladok info` Show current user information
+- [ ] `gucli ladok course` Register for a course
+- [ ] `gucli ladok exam` Sign-up for examination
+- [ ] `gucli ladok results` Show current user results
 
 
 ### GUL
