@@ -6,6 +6,13 @@ at the University of Gothenburg.
 This software has **no official status** and **no affiliation** or whatsoever
 with the University of Gothenburg.
 
+
+## Installation
+
+* Configure your [golang workspace](https://golang.org/doc/code.html)
+* Install with `go get github.com/snogaraleal/gu/gucli`
+
+
 ## Usage
 
 `gucli <command> <action> <flags ...>`
