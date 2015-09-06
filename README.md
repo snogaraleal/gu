@@ -21,12 +21,19 @@ Student housing service.
 - [ ] `gucli sgs renew` Renew place in the queue
 - [ ] `gucli sgs register -o <object>` Register interest
 
+##### Example
+
+Poll SGS for last minute vacants with an interval of 4 seconds
+`watch -n 4 gucli sgs search -m sistam`
+
 
 ### Student Portal
 
 Authentication system for external services.
 
 - [x] `gucli sp auth` Authenticate via student portal
+- [ ] `gucli sp password` Change password
+- [ ] `gucli sp syllabus -q <query>`
 
 
 ### Ladok
