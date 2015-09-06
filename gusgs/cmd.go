@@ -6,6 +6,7 @@ import (
     "os"
 
     "golang.org/x/crypto/ssh/terminal"
+
     "github.com/snogaraleal/gu/gubase"
 )
 
@@ -79,17 +80,12 @@ func DoAuth(args []string) {
 
     // Make request
     result := Request(&AuthUtility{username, password}).(AuthResult)
+    result.SyncPrefs()
 
-    // Handle result
+    // Show result
     if result.Success {
         fmt.Println(gubase.Color("● Auth succeeded", gubase.ColorGreen))
-
-        // Store token
-        gubase.SetPref("sgs.token", result.Token)
     } else {
         fmt.Println(gubase.Color("● Auth failed", gubase.ColorRed))
-
-        // Clean token
-        gubase.SetPref("sgs.token", nil)
     }
 }

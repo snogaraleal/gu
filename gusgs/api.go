@@ -8,9 +8,15 @@ import (
     "net/url"
     "strconv"
     "strings"
+
+    "github.com/snogaraleal/gu/gubase"
 )
 
 const BaseUrl = "https://marknad.sgsstudentbostader.se"
+
+const (
+    PrefToken = "sgs.token"
+)
 
 var DefaultHeaders = map[string]string {
     "User-Agent": "gucli/1.0",
@@ -300,4 +306,14 @@ func AuthResultFromData(data map[string]interface{}) AuthResult {
     }
 
     return result
+}
+
+func (result *AuthResult) SyncPrefs() {
+    if result.Success {
+        // Store token
+        gubase.SetPref(PrefToken, result.Token)
+    } else {
+        // Clean token
+        gubase.SetPref(PrefToken, nil)
+    }
 }
