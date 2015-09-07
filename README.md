@@ -39,9 +39,9 @@ Poll SGS for last minute vacants with an interval of 4 seconds
 
 Authentication system for external services.
 
+- [x] `gucli sp syllabus -q <query>` Search for syllabuses
 - [x] `gucli sp auth` Authenticate via student portal
 - [ ] `gucli sp password` Change password
-- [ ] `gucli sp syllabus -q <query>` Search for syllabuses
 
 
 ### Ladok

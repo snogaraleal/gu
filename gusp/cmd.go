@@ -1,6 +1,7 @@
 package gusp
 
 import (
+    "flag"
     "fmt"
     "os"
 
@@ -13,6 +14,8 @@ func Do(action string, args []string) {
     switch action {
     case "auth":
         DoAuth(args)
+    case "syllabus":
+        DoSyllabus(args)
     }
 }
 
@@ -39,4 +42,36 @@ func DoAuth(args []string) {
     } else {
         fmt.Println(gubase.Color("● Auth failed", gubase.ColorRed))
     }
+}
+
+func DoSyllabus(args []string) {
+    // Get params
+    var flagSet = flag.NewFlagSet("syllabus", flag.ExitOnError)
+
+    var query string
+    flagSet.StringVar(&query, "q", "", "Search query")
+
+    flagSet.Parse(args)
+
+    // Make request
+    session := NewSession()
+    result := session.Request(&SyllabusUtility{query}).(SyllabusResult)
+
+    // Show results
+    for _, course := range result.Courses {
+        // Description
+        fmt.Printf(
+            gubase.Color("● %s » %s\n", gubase.ColorWhite),
+            course.Code, course.Title)
+
+        // Documents
+        for _, doc := range course.Docs {
+            fmt.Printf("  ● %s\n", doc.Title)
+            fmt.Printf("    %s\n", doc.Link)
+        }
+
+        fmt.Println("")
+    }
+
+    fmt.Println(gubase.Color(result.Message, gubase.ColorWhite))
 }
